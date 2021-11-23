@@ -1,6 +1,7 @@
 ---
 name: Build static binary
 on: push
+
 env:
   BUILDER_IMAGE: ghcr.io/k8sli/nixos-nix:v2.3.12
 
@@ -33,10 +34,9 @@ jobs:
 
       - name: Release and upload binary file
         uses: ncipollo/release-action@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          files: |
+          artifacts: |
             skopeo-linux-${{ matrix.arch }}
             skopeo-linux-${{ matrix.arch }}.sha256sum.txt
+          token: ${{ secrets.GITHUB_TOKEN }}
 
